@@ -38,6 +38,21 @@ const routes = [
     path: '/shilian/index',
     component: () => import('@/views/shilian/Index.vue'),
   },
+  // 试炼-选择题考试
+  {
+    path: '/shilian/xuanzeti',
+    component: () => import('@/views/shilian/XuanzetiKaoshi.vue'),
+  },
+  // 试炼-考试结果
+  {
+    path: '/shilian/jieguo',
+    component: () => import('@/views/shilian/KaoshiJieguo.vue'),
+  },
+  // 试炼-错题列表
+  {
+    path: '/shilian/cuoti-liebiao',
+    component: () => import('@/views/shilian/CuotiLiebiao.vue'),
+  },
   // 排行榜
   {
     path: '/paihangbang/index',

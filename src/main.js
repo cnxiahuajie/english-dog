@@ -6,10 +6,14 @@ import './assets/scss/reset.scss'
 import Mint from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import { MessageBox } from 'mint-ui'
+import { Toast } from 'mint-ui'
+import { Indicator } from 'mint-ui'
 import http from '@/api/config'
 
 Vue.use(Mint)
 Vue.prototype.$MessageBox = MessageBox
+Vue.prototype.$Toast = Toast
+Vue.prototype.$Indicator = Indicator
 Vue.prototype.$http = http
 
 router.beforeEach((to, from, next) => {

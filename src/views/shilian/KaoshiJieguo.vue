@@ -1,33 +1,19 @@
 <template>
-  <div>
-    <div>
+  <div id="content-container">
+    <div class="content">
+      <label class="score">
+        {{ score.score }}
+      </label>
+      <span class="tips-buhege" v-if="score.score <= 50"> 真菜 </span>
+      <span class="tips-hege" v-else-if="score.score <= 70"> 合格 </span>
+      <span class="tips-hege" v-else-if="score.score <= 90"> 优秀 </span>
+      <span class="tips-hege" v-else> 牛逼 </span>
+    </div>
+    <div class="button-container">
       <div>
-        <Header :backable="false" :title="'试炼结果'"></Header>
+        <mt-button style="width: 100%" plain type="danger" @click="goCuotiLiebiao">查看错题集</mt-button>
       </div>
-    </div>
-    <div>
-      <mt-cell title="正确">
-        <mt-spinner v-if="loadingParams.successLoading" color="green" :type="spinnerType"></mt-spinner>
-        <span v-else style="color: green">17</span>
-      </mt-cell>
-      <mt-cell title="错误">
-        <mt-spinner v-if="loadingParams.failedLoading" color="red" :type="spinnerType"></mt-spinner>
-        <span v-else style="color: red">17</span>
-      </mt-cell>
-      <mt-cell title="犹豫不决">
-        <mt-spinner v-if="loadingParams.indecisionLoading" color="#ffcc00" :type="spinnerType"></mt-spinner>
-        <span v-else style="color: #ffcc00">17</span>
-      </mt-cell>
-      <mt-cell title="综合得分" value="30">
-        <mt-spinner v-if="loadingParams.scoreLoading" color="#3366ff" :type="spinnerType"></mt-spinner>
-        <span v-else style="color: #3366ff">17</span>
-      </mt-cell>
-    </div>
-    <div id="button-container">
-      <div style="padding: 10px">
-        <mt-button style="width: 100%" plain type="default" @click="goCuotiLiebiao">查看错题集</mt-button>
-      </div>
-      <div style="padding: 10px">
+      <div>
         <mt-button style="width: 100%" plain type="primary" @click="backToIndex">返回首页</mt-button>
       </div>
     </div>
@@ -35,25 +21,24 @@
 </template>
 
 <script>
-import Header from '@/components/Header.vue'
 export default {
-  components: { Header },
   data() {
     return {
-      spinnerType: 0,
-      loadingParams: {
-        successLoading: true,
-        failedLoading: true,
-        indecisionLoading: true,
-        scoreLoading: true,
-      },
+      score: {},
     }
   },
-  mounted() {},
+  mounted() {
+    this.loadScore()
+  },
   methods: {
+    loadScore() {
+      this.$http.get(`/score/findByBatchNumber/${this.$route.query.batchNumber}`).then((res) => {
+        this.score = res.data
+      })
+    },
     goCuotiLiebiao() {
       // 跳转主页
-      this.$router.push({ path: '/cuoti-liebiao', params: { id: '1' } })
+      this.$router.push({ path: '/shilian/cuoti-liebiao', query: { batchNumber: this.$route.query.batchNumber } })
     },
     backToIndex() {
       // 跳转主页
@@ -64,8 +49,50 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#button-container {
+#content-container {
+  width: calc(100vw);
+  height: calc(100vh - 95px);
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .content {
+    width: calc(50vw);
+    height: calc(50vw);
+    border-radius: 50%;
+    border: 4px dotted #26a2ff;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .score {
+      color: #26a2ff;
+      font-size: 4em;
+      font-weight: bold;
+    }
+
+    .tips-hege {
+      padding: 2px 1em;
+      background-color: #26a2ff;
+      color: white;
+    }
+
+    .tips-buhege {
+      padding: 2px 1em;
+      background-color: red;
+      color: white;
+    }
+  }
+
+  .button-container {
+    width: calc(50vw);
+
+    div {
+      padding: 10px 0px;
+    }
+  }
 }
 </style>

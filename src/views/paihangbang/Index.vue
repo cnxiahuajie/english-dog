@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     loadRankingByType() {
-      this.$http.get('/score/findAllBySort/desc').then((res) => {
+      this.$http.get('/jifen/findAllBySort/desc').then((res) => {
         this.list = res.data
       })
     },
