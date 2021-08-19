@@ -43,6 +43,11 @@ const routes = [
     path: '/shilian/xuanzeti',
     component: () => import('@/views/shilian/XuanzetiKaoshi.vue'),
   },
+  // 试炼-拼写题考试
+  {
+    path: '/shilian/pinxieti',
+    component: () => import('@/views/shilian/PinxietiKaoshi.vue'),
+  },
   // 试炼-考试结果
   {
     path: '/shilian/jieguo',

@@ -7,7 +7,7 @@
       <h1 style="font-size: 16px; margin-left: 10px; margin-bottom: 10px; font-weight: 500">我的生涯</h1>
       <mt-cell title="总练习时长">
         <span>{{ myInfo.careerInfo.learnDuration }}</span
-        >&nbsp;小时
+        >&nbsp;分钟
       </mt-cell>
       <mt-cell title="总试炼次数">
         <span>{{ myInfo.careerInfo.testCount }}</span

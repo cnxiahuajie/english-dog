@@ -11,6 +11,7 @@
 export default {
   data() {
     return {
+      timer: null,
       doTitle: '练习',
       list: [],
       loading: false,
@@ -26,7 +27,19 @@ export default {
       },
     }
   },
+  mounted() {
+    let that = this
+    this.timer = setInterval(function () {
+      that.sendLaern()
+    }, 60000)
+  },
+  beforeDestroy() {
+    clearInterval(this.timer)
+  },
   methods: {
+    sendLaern() {
+      this.$http.post('/career/doUpdateLearnDuration')
+    },
     loadMore() {
       if (this.page.last == false && this.loading == false) {
         this.loading = true

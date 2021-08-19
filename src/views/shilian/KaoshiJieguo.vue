@@ -42,7 +42,7 @@ export default {
     },
     backToIndex() {
       // 跳转主页
-      this.$router.push({ path: '/index', params: { id: '1' } })
+      this.$router.push({ path: '/shilian/index', params: { id: '1' } })
     },
   },
 }
