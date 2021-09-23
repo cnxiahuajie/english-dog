@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>自我介绍</title>
+		
+		<style>
+
+			/* 全局样式 */
+			body {
+				font-family: '华文行楷', '方正舒体', '微软雅黑', '宋体';
+				font-size: 18px;
+			}
+
+			/* 信纸 */
+			.paper {
+				margin: auto;
+				width: 400px;
+				height: 600px;
+				border-radius: 4px;
+				background-color: antiquewhite;
+				padding: 20px;
+				display: flex;
+				flex-direction: row-reverse;
+			}
+
+			/* 一列纸格 */
+			.paper-grid {
+				width: 50px;
+				border: 1px solid red;
+				border-right: 0;
+				padding-top: 2em;
+				padding-bottom: 2em;
+
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			/* 文字元素 */
+			.word-element {
+				position: relative;
+				animation: render 0.6s linear;
+				-webkit-animation: render 0.6s linear;
+				-o-animation: render 0.6s linear;
+			}
+
+			/* 渲染动画 */
+			@keyframes render
+			{
+				0%   {text-shadow: -8px 0px 5px #161616; opacity: 0.2; transform: translateY(8px);}
+				25%  {text-shadow: 0px 0px 5px #161616; opacity: 0.4; transform: translateY(6px);}
+				50%  {text-shadow: 8px 0px 5px #161616; opacity: 0.6; transform: translateY(4px);}
+				75%  {text-shadow: 0px 0px 5px #161616; opacity: 0.8; transform: translateY(2px);}
+				100% {text-shadow: 0px 0px 0px #161616; opacity: 1.0; transform: translateY(0px);}
+			}
+		</style>
+
+		<script>
+			window.onload = function() {
+				// 自我介绍的标题
+				var titleWords = ['自', '我', '介', '绍']
+				var titleElements = []
+				// 自我介绍的内容
+				var words = ['我','叫','夏','华','杰','，','来','自','湖','北','黄','冈','。','我','喜','欢','游','泳','、','跑','步','、','音','乐', '、','游','戏','，', '热', '爱', '编','程','。','我','在','大','一','时','期','的','主','要','目','标','是','英','语','四','级','，','大','二','的','主','要','目','标','是','计','算','机','六','级','和','软','考','中','级','，','大','三','的','主','要','目','标','是','专','升','本','。','希','望','在','未','来','的','大','学','生','活','中','能','和','大','家','一','起','努','力','奋','斗','。']
+				var wordElements = []
+				// 落款
+				var sign = ['2', '1', '0', '2', '&nbsp;', '夏', '华', '杰']
+				var signElements = []
+
+				// 初始化自我介绍的标题文字元素
+				for(var i = 0; i < titleWords.length; i++) {
+					var element = document.createElement("span")
+					element.classList.add('word-element')
+					element.innerHTML = titleWords[i]
+					titleElements.push(element)
+				}
+				// 初始化自我介绍的内容元素
+				for(var i = 0; i < words.length; i++) {
+					var element = document.createElement("span")
+					element.classList.add('word-element')
+					element.innerHTML = words[i]
+					wordElements.push(element)
+				}
+
+				// 初始化自我介绍的落款元素
+				for(var i = 0; i < sign.length; i++) {
+					var element = document.createElement("span")
+					element.classList.add('word-element')
+					element.innerHTML = sign[i]
+					signElements.push(element)
+				}
+
+				// 初始化信纸
+				var paper = document.getElementById('paper')
+				for(var i = 0; i < 9; i++) {
+					var row = document.createElement("div")
+					row.classList.add('paper-grid')
+					// 第一列的所有边框均有颜色
+					if (i == 0) {
+						row.style.border = '1px solid red'
+						paper.appendChild(row)
+					} else {
+						paper.appendChild(row)
+					}
+				}
+
+				// 渲染标题文字
+				var paperGrid = document.getElementsByClassName('paper-grid')
+				for(var i = 0; i < titleElements.length; i++) {
+					paperGrid[0].appendChild(titleElements[i])
+				}
+				// 渲染内容文字
+				var signIndex = 0
+				for(var i = 1; i < paperGrid.length; i++) {
+					for(var j = (i - 1) * 25; j < (i - 1) * 25 + 25; j++) {
+						if (wordElements[j]) {
+							paperGrid[i].appendChild(wordElements[j])
+						} else {
+							break;
+						}
+					}
+					signIndex = i - 1
+				}
+				// 渲染落款文字
+				paperGrid[signIndex].style.flexDirection = 'column-reverse'
+				signElements[7].style.marginBottom = '100px'
+				for(var i = signElements.length - 1; i >= 0 ; i--) {
+					paperGrid[signIndex].appendChild(signElements[i])
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div class="paper" id="paper">
+			<div id="mask"></div>
+		</div>
+	</body>
+</html>
